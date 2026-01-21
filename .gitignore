@@ -2,3 +2,4 @@ docs/
 backend/target/
 **/.DS_Store
 .vscode/
+backend/logs
