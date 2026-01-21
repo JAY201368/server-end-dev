@@ -1,5 +1,6 @@
 package com.student.system.controller;
 
+import com.student.system.annotation.RequestMonitor;
 import com.student.system.common.Result;
 import com.student.system.dto.ScoreDTO;
 import com.student.system.entity.Score;
@@ -42,6 +43,7 @@ public class ScoreController {
      * @return 响应结果
      */
     @PostMapping("/save")
+    @RequestMonitor(value = "录入成绩", category = "score")
     public Result<String> saveScore(@Valid @RequestBody ScoreDTO scoreDTO) {
         log.info("开始录入成绩 - 学生ID: {}, 课程ID: {}, 分数: {}",
                 scoreDTO.getStudentId(), scoreDTO.getCourseId(), scoreDTO.getScore());
@@ -156,6 +158,7 @@ public class ScoreController {
      * @return 排行榜数据
      */
     @GetMapping("/ranking")
+    @RequestMonitor(value = "查询成绩排行榜", category = "score")
     public Result<List<ScoreRankVO>> getRanking(
             @RequestParam String semester,
             @RequestParam(defaultValue = "10") Integer topN) {

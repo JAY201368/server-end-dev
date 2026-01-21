@@ -1,18 +1,27 @@
 package com.student.system.controller;
 
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.student.system.annotation.RequestMonitor;
 import com.student.system.common.Result;
 import com.student.system.dto.StudentDTO;
+import com.student.system.dto.SystemLogMessage;
 import com.student.system.entity.Student;
 import com.student.system.service.StudentService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 /**
  * 学生管理控制器
@@ -28,6 +37,9 @@ import org.springframework.web.bind.annotation.*;
 public class StudentController {
 
     private final StudentService studentService;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+
+    private static final String SYSTEM_LOG_TOPIC = "system-log-topic";
 
     /**
      * 添加学生
@@ -36,6 +48,7 @@ public class StudentController {
      * @return 响应结果
      */
     @PostMapping("/add")
+    @RequestMonitor(value = "添加学生", category = "student")
     public Result<String> addStudent(@Valid @RequestBody StudentDTO studentDTO) {
         log.info("开始添加学生 - 学号: {}, 姓名: {}", studentDTO.getStudentNo(), studentDTO.getName());
 
@@ -114,12 +127,14 @@ public class StudentController {
     /**
      * 删除学生
      * 使用逻辑删除（MyBatis-Plus的@TableLogic）
+     * 删除成功后发送消息到 Kafka
      *
      * @param id 学生ID
      * @return 响应结果
      */
     @DeleteMapping("/{id}")
-    public Result<String> deleteStudent(@PathVariable Long id) {
+    @RequestMonitor(value = "删除学生", category = "student")
+    public Result<String> deleteStudent(@PathVariable Long id, HttpServletRequest request) {
         log.info("开始删除学生 - ID: {}", id);
 
         try {
@@ -130,11 +145,14 @@ public class StudentController {
             }
 
             // 逻辑删除学生
-            // 注：这里可以在后续阶段集成Kafka，发送删除事件到消息队列
             boolean success = studentService.removeById(id);
 
             if (success) {
                 log.info("学生删除成功 - ID: {}, 学号: {}, 姓名: {}", id, student.getStudentNo(), student.getName());
+
+                // 发送删除事件到 Kafka
+                sendDeleteLogToKafka(student, request);
+
                 return Result.success("删除学生成功");
             } else {
                 return Result.error("删除学生失败");
@@ -144,6 +162,76 @@ public class StudentController {
             log.error("删除学生异常", e);
             return Result.error("删除学生失败: " + e.getMessage());
         }
+    }
+
+    /**
+     * 发送学生删除日志到 Kafka
+     *
+     * @param student 被删除的学生信息
+     * @param request HTTP请求对象
+     */
+    private void sendDeleteLogToKafka(Student student, HttpServletRequest request) {
+        try {
+            // 获取当前操作人
+            String operator = getCurrentUsername();
+
+            // 获取IP地址
+            String ipAddress = getClientIpAddress(request);
+
+            // 构建日志消息
+            SystemLogMessage logMessage = SystemLogMessage.builder()
+                    .operationType("DELETE_STUDENT")
+                    .operator(operator)
+                    .targetId(student.getId())
+                    .targetInfo(JSON.toJSONString(student))
+                    .operationTime(LocalDateTime.now())
+                    .ipAddress(ipAddress)
+                    .remark("删除学生: " + student.getName() + " (学号: " + student.getStudentNo() + ")")
+                    .build();
+
+            // 发送到 Kafka
+            String messageJson = JSON.toJSONString(logMessage);
+            kafkaTemplate.send(SYSTEM_LOG_TOPIC, messageJson);
+
+            log.info("已发送删除日志到Kafka - 学生ID: {}, 操作人: {}", student.getId(), operator);
+
+        } catch (Exception e) {
+            log.error("发送Kafka消息失败", e);
+            // 不影响主业务流程，仅记录错误
+        }
+    }
+
+    /**
+     * 获取当前登录用户名
+     */
+    private String getCurrentUsername() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.isAuthenticated()) {
+                return authentication.getName();
+            }
+        } catch (Exception e) {
+            log.warn("获取当前用户信息失败", e);
+        }
+        return "SYSTEM";
+    }
+
+    /**
+     * 获取客户端真实IP地址
+     */
+    private String getClientIpAddress(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("X-Real-IP");
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        // 处理多级代理的情况，取第一个IP
+        if (ip != null && ip.contains(",")) {
+            ip = ip.split(",")[0].trim();
+        }
+        return ip;
     }
 
     /**
@@ -183,6 +271,7 @@ public class StudentController {
      * @return 分页数据
      */
     @GetMapping("/list")
+    @RequestMonitor(value = "查询学生列表", category = "student")
     public Result<IPage<Student>> listStudents(
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size,

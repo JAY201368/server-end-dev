@@ -73,6 +73,9 @@ public class SecurityConfig {
                         // 放行学生和成绩接口（开发阶段临时放行，生产环境应删除）
                         .requestMatchers("/student/**", "/score/**").permitAll()
 
+                        // 放行监控接口（开发阶段临时放行，生产环境建议添加权限控制）
+                        .requestMatchers("/monitor/**").permitAll()
+
                         // 其他所有请求都需要认证
                         .anyRequest().authenticated())
 
