@@ -1,0 +1,198 @@
+server:
+  port: 8088
+  servlet:
+    context-path: /api
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+
+spring:
+  application:
+    name: student-management-system
+
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/student_sys?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    username: student_user
+    password: student_pass
+    # HikariCP 连接池配置
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: StudentSystemHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+
+  # Redis 配置
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: redis123456
+      database: 0
+      timeout: 5000ms
+      lettuce:
+        pool:
+          max-active: 20
+          max-idle: 10
+          min-idle: 5
+          max-wait: 2000ms
+        shutdown-timeout: 100ms
+
+  # Kafka 配置
+  kafka:
+    bootstrap-servers: localhost:9092
+    # 生产者配置
+    producer:
+      retries: 3
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: 1
+      properties:
+        linger.ms: 100
+    # 消费者配置
+    consumer:
+      group-id: student-system-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 500
+      properties:
+        session.timeout.ms: 30000
+        max.poll.interval.ms: 300000
+    # 监听器配置
+    listener:
+      ack-mode: manual_immediate
+      concurrency: 3
+
+  # Thymeleaf 配置
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+
+  # 文件上传配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 20MB
+
+  # Jackson 配置
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  # Mapper XML 文件位置
+  mapper-locations: classpath*:/mapper/**/*.xml
+  # 实体类扫描包
+  type-aliases-package: com.student.system.entity
+  configuration:
+    # 驼峰转下划线
+    map-underscore-to-camel-case: true
+    # 日志实现
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    # 懒加载
+    lazy-loading-enabled: true
+    aggressive-lazy-loading: false
+    # 二级缓存
+    cache-enabled: true
+  global-config:
+    banner: false
+    db-config:
+      # 主键策略
+      id-type: auto
+      # 逻辑删除字段
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      # 表名前缀（如果需要）
+      # table-prefix: t_
+
+# Actuator 监控配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.student.system: DEBUG
+    com.student.system.mapper: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+  file:
+    name: logs/student-system.log
+    max-size: 10MB
+    max-history: 30
+
+# 自定义配置
+app:
+  # JWT 配置
+  jwt:
+    secret: StudentManagementSystemSecretKey2024ForJWTToken
+    expiration: 86400000  # 24小时(毫秒)
+    refresh-expiration: 604800000  # 7天(毫秒)
+    header: Authorization
+    token-prefix: "Bearer "
+
+  # 文件上传配置
+  upload:
+    # 上传路径
+    path: /Users/jay/Desktop/project/uploads
+    # 访问URL前缀
+    url-prefix: /uploads
+    # 允许的文件类型
+    allowed-types: jpg,jpeg,png,gif,pdf,doc,docx,xls,xlsx
+    # 最大文件大小(MB)
+    max-size: 10
+
+  # Redis Key 前缀配置
+  redis:
+    key-prefix:
+      token: "token:"
+      user: "user:"
+      permission: "permission:"
+      score-rank: "score:rank:"
+      api-stats: "api:stats:"
+    # Token 过期时间(秒)
+    token-expire: 86400
+
+  # Kafka Topic 配置
+  kafka:
+    topics:
+      operation-log: operation-log-topic
+      student-event: student-event-topic
+      score-event: score-event-topic
+
+  # 跨域配置
+  cors:
+    allowed-origins:
+      - http://localhost:3000
+      - http://localhost:8080
+      - http://localhost:5173
+    allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+    allowed-headers: "*"
+    allow-credentials: true
+    max-age: 3600

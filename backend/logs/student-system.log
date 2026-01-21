@@ -1,0 +1,258 @@
+2026-01-21 16:14:41.608 [restartedMain] INFO  com.student.system.StudentSystemApplication - Starting StudentSystemApplication using Java 17.0.17 with PID 37954 (/Users/jay/Desktop/project/backend/target/classes started by jay in /Users/jay/Desktop/project/backend)
+2026-01-21 16:14:41.609 [restartedMain] DEBUG com.student.system.StudentSystemApplication - Running with Spring Boot v3.2.1, Spring v6.1.2
+2026-01-21 16:14:41.609 [restartedMain] INFO  com.student.system.StudentSystemApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-21 16:14:41.633 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-21 16:14:41.633 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-21 16:14:42.064 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-01-21 16:14:42.065 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-01-21 16:14:42.077 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2026-01-21 16:14:42.148 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.student.system.mapper]' package. Please check your configuration.
+2026-01-21 16:14:42.637 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8088 (http)
+2026-01-21 16:14:42.643 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-21 16:14:42.643 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-01-21 16:14:42.663 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-01-21 16:14:42.664 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1031 ms
+2026-01-21 16:14:43.642 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: b19ecf95-e6c2-4405-a3bb-9a0b8533fa06
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-01-21 16:14:43.725 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2026-01-21 16:14:43.761 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@77e2b8ee, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4c9e2c2b, org.springframework.security.web.context.SecurityContextHolderFilter@30dc52e9, org.springframework.security.web.header.HeaderWriterFilter@19ad2f83, org.springframework.web.filter.CorsFilter@67872775, org.springframework.security.web.csrf.CsrfFilter@3ba11192, org.springframework.security.web.authentication.logout.LogoutFilter@4b8c3211, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7f9ca1e, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@64aff7b3, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@28013642, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@59d49e82, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@29046f06, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3509c5ce, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4a46ce64, org.springframework.security.web.access.ExceptionTranslationFilter@3bf22f17, org.springframework.security.web.access.intercept.AuthorizationFilter@2945401f]
+2026-01-21 16:14:43.959 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-01-21 16:14:43.998 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8088 (http) with context path '/api'
+2026-01-21 16:14:44.009 [restartedMain] INFO  com.student.system.StudentSystemApplication - Started StudentSystemApplication in 2.6 seconds (process running for 2.799)
+2026-01-21 16:15:03.445 [http-nio-8088-exec-1] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-21 16:15:03.446 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-21 16:15:03.460 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 14 ms
+2026-01-21 16:17:56.162 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2026-01-21 16:17:57.645 [restartedMain] INFO  com.student.system.StudentSystemApplication - Starting StudentSystemApplication using Java 17.0.17 with PID 37954 (/Users/jay/Desktop/project/backend/target/classes started by jay in /Users/jay/Desktop/project/backend)
+2026-01-21 16:17:57.645 [restartedMain] DEBUG com.student.system.StudentSystemApplication - Running with Spring Boot v3.2.1, Spring v6.1.2
+2026-01-21 16:17:57.645 [restartedMain] INFO  com.student.system.StudentSystemApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-21 16:17:57.774 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-01-21 16:17:57.774 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-01-21 16:17:57.775 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 0 ms. Found 0 Redis repository interfaces.
+2026-01-21 16:17:57.796 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.student.system.mapper]' package. Please check your configuration.
+2026-01-21 16:17:57.917 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8088 (http)
+2026-01-21 16:17:57.918 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-21 16:17:57.918 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-01-21 16:17:57.922 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-01-21 16:17:57.922 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 276 ms
+2026-01-21 16:17:58.041 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 52ac2f1a-836f-455a-82ac-a3bb6c9a8d08
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-01-21 16:17:58.284 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2026-01-21 16:17:58.352 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3f74d3af, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7a69bd7e, org.springframework.security.web.context.SecurityContextHolderFilter@3447d382, org.springframework.security.web.header.HeaderWriterFilter@3c9ed2fd, org.springframework.security.web.authentication.logout.LogoutFilter@7f6048d3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5d7b26ee, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6b502a19, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@536f2991, org.springframework.security.web.session.SessionManagementFilter@34de7ee4, org.springframework.security.web.access.ExceptionTranslationFilter@13ea5662, org.springframework.security.web.access.intercept.AuthorizationFilter@15e83821]
+2026-01-21 16:17:58.705 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-01-21 16:17:58.718 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8088 (http) with context path '/api'
+2026-01-21 16:17:58.724 [restartedMain] INFO  com.student.system.StudentSystemApplication - Started StudentSystemApplication in 1.094 seconds (process running for 197.514)
+2026-01-21 16:17:58.727 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   ManagementWebSecurityAutoConfiguration:
+      Did not match:
+         - AllNestedConditions 1 matched 1 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) found beans of type 'org.springframework.security.web.SecurityFilterChain' securityFilterChain; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+      Matched:
+         - found 'session' scope (OnWebApplicationCondition)
+
+   SpringBootWebSecurityConfiguration.WebSecurityEnablerConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (names: springSecurityFilterChain; SearchStrategy: all) found beans named springSecurityFilterChain (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.security.config.annotation.web.configuration.EnableWebSecurity' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2026-01-21 16:18:28.369 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2026-01-21 16:18:29.245 [restartedMain] INFO  com.student.system.StudentSystemApplication - Starting StudentSystemApplication using Java 17.0.17 with PID 37954 (/Users/jay/Desktop/project/backend/target/classes started by jay in /Users/jay/Desktop/project/backend)
+2026-01-21 16:18:29.245 [restartedMain] DEBUG com.student.system.StudentSystemApplication - Running with Spring Boot v3.2.1, Spring v6.1.2
+2026-01-21 16:18:29.245 [restartedMain] INFO  com.student.system.StudentSystemApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-21 16:18:29.363 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-01-21 16:18:29.363 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-01-21 16:18:29.364 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 0 ms. Found 0 Redis repository interfaces.
+2026-01-21 16:18:29.387 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.student.system.mapper]' package. Please check your configuration.
+2026-01-21 16:18:29.502 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8088 (http)
+2026-01-21 16:18:29.502 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-21 16:18:29.502 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-01-21 16:18:29.507 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-01-21 16:18:29.507 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 261 ms
+2026-01-21 16:18:29.632 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 7138a710-d7fa-4226-8c01-c3f430bf6803
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-01-21 16:18:29.879 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2026-01-21 16:18:29.951 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@a21a758, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6d9a979c, org.springframework.security.web.context.SecurityContextHolderFilter@135b9261, org.springframework.security.web.header.HeaderWriterFilter@8ad055e, org.springframework.security.web.authentication.logout.LogoutFilter@12b3a99e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@385dd965, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1cd32a97, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4ba5a084, org.springframework.security.web.session.SessionManagementFilter@14f880b4, org.springframework.security.web.access.ExceptionTranslationFilter@89118a, org.springframework.security.web.access.intercept.AuthorizationFilter@1f2c7092]
+2026-01-21 16:18:30.319 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-01-21 16:18:30.343 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8088 (http) with context path '/api'
+2026-01-21 16:18:30.350 [restartedMain] INFO  com.student.system.StudentSystemApplication - Started StudentSystemApplication in 1.124 seconds (process running for 229.14)
+2026-01-21 16:18:30.352 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-01-21 16:18:31.723 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2026-01-21 16:18:32.489 [restartedMain] INFO  com.student.system.StudentSystemApplication - Starting StudentSystemApplication using Java 17.0.17 with PID 37954 (/Users/jay/Desktop/project/backend/target/classes started by jay in /Users/jay/Desktop/project/backend)
+2026-01-21 16:18:32.489 [restartedMain] DEBUG com.student.system.StudentSystemApplication - Running with Spring Boot v3.2.1, Spring v6.1.2
+2026-01-21 16:18:32.489 [restartedMain] INFO  com.student.system.StudentSystemApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-21 16:18:32.593 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-01-21 16:18:32.593 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-01-21 16:18:32.594 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 0 ms. Found 0 Redis repository interfaces.
+2026-01-21 16:18:32.615 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.student.system.mapper]' package. Please check your configuration.
+2026-01-21 16:18:32.720 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8088 (http)
+2026-01-21 16:18:32.721 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-21 16:18:32.721 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-01-21 16:18:32.725 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-01-21 16:18:32.725 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 235 ms
+2026-01-21 16:18:32.885 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 4c7b2960-90c0-432f-a728-cd5e57431421
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-01-21 16:18:33.099 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2026-01-21 16:18:33.170 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@448af876, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6f22156b, org.springframework.security.web.context.SecurityContextHolderFilter@5cfe87b3, org.springframework.security.web.header.HeaderWriterFilter@549e76fd, org.springframework.security.web.authentication.logout.LogoutFilter@63de151a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5095817, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6370a25d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@840b50d, org.springframework.security.web.session.SessionManagementFilter@4f5f3901, org.springframework.security.web.access.ExceptionTranslationFilter@5df59bf3, org.springframework.security.web.access.intercept.AuthorizationFilter@4586f207]
+2026-01-21 16:18:33.541 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-01-21 16:18:33.554 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8088 (http) with context path '/api'
+2026-01-21 16:18:33.560 [restartedMain] INFO  com.student.system.StudentSystemApplication - Started StudentSystemApplication in 1.08 seconds (process running for 232.349)
+2026-01-21 16:18:33.561 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   RedisAutoConfiguration#redisTemplate:
+      Did not match:
+         - @ConditionalOnMissingBean (names: redisTemplate; SearchStrategy: all) found beans named redisTemplate (OnBeanCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2026-01-21 16:18:39.016 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2026-01-21 16:18:50.045 [Thread-15] WARN  org.apache.tomcat.util.net.Acceptor - The acceptor thread [http-nio-8088-Acceptor] did not stop cleanly
+2026-01-21 16:18:50.115 [restartedMain] INFO  com.student.system.StudentSystemApplication - Starting StudentSystemApplication using Java 17.0.17 with PID 37954 (/Users/jay/Desktop/project/backend/target/classes started by jay in /Users/jay/Desktop/project/backend)
+2026-01-21 16:18:50.115 [restartedMain] DEBUG com.student.system.StudentSystemApplication - Running with Spring Boot v3.2.1, Spring v6.1.2
+2026-01-21 16:18:50.115 [restartedMain] INFO  com.student.system.StudentSystemApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-21 16:18:50.223 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-01-21 16:18:50.223 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-01-21 16:18:50.224 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 0 ms. Found 0 Redis repository interfaces.
+2026-01-21 16:18:50.245 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.student.system.mapper]' package. Please check your configuration.
+2026-01-21 16:18:50.358 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8088 (http)
+2026-01-21 16:18:50.359 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-21 16:18:50.359 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-01-21 16:18:50.363 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-01-21 16:18:50.364 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 248 ms
+2026-01-21 16:18:50.533 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 1d283aa8-54ec-4ddf-8402-43ab84431bcc
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-01-21 16:18:50.752 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2026-01-21 16:18:50.818 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6626b954, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@63cf9a9b, org.springframework.security.web.context.SecurityContextHolderFilter@5b930921, org.springframework.security.web.header.HeaderWriterFilter@79810de3, org.springframework.security.web.authentication.logout.LogoutFilter@3728cc2b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cf134ec, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5f3e5700, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@744afa62, org.springframework.security.web.session.SessionManagementFilter@334e626d, org.springframework.security.web.access.ExceptionTranslationFilter@73946300, org.springframework.security.web.access.intercept.AuthorizationFilter@7d81d957]
+2026-01-21 16:18:51.167 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-01-21 16:18:51.180 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8088 (http) with context path '/api'
+2026-01-21 16:18:51.186 [restartedMain] INFO  com.student.system.StudentSystemApplication - Started StudentSystemApplication in 1.081 seconds (process running for 249.975)
+2026-01-21 16:18:51.187 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-01-21 16:19:01.666 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-01-21 16:19:02.755 [restartedMain] INFO  com.student.system.StudentSystemApplication - Starting StudentSystemApplication using Java 17.0.17 with PID 37954 (/Users/jay/Desktop/project/backend/target/classes started by jay in /Users/jay/Desktop/project/backend)
+2026-01-21 16:19:02.755 [restartedMain] DEBUG com.student.system.StudentSystemApplication - Running with Spring Boot v3.2.1, Spring v6.1.2
+2026-01-21 16:19:02.755 [restartedMain] INFO  com.student.system.StudentSystemApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-21 16:19:02.865 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-01-21 16:19:02.865 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-01-21 16:19:02.866 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 0 ms. Found 0 Redis repository interfaces.
+2026-01-21 16:19:02.889 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.student.system.mapper]' package. Please check your configuration.
+2026-01-21 16:19:02.996 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8088 (http)
+2026-01-21 16:19:02.997 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-21 16:19:02.997 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-01-21 16:19:03.001 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-01-21 16:19:03.001 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 245 ms
+2026-01-21 16:19:03.159 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 6423627e-f43b-4360-862e-c3e304b94ed7
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-01-21 16:19:03.370 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2026-01-21 16:19:03.436 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@14e859dc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6b31ca03, org.springframework.security.web.context.SecurityContextHolderFilter@50df734c, org.springframework.security.web.header.HeaderWriterFilter@1b9d7247, org.springframework.security.web.authentication.logout.LogoutFilter@1b069846, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@73d1d591, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@65e448d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@381de200, org.springframework.security.web.session.SessionManagementFilter@39163e9c, org.springframework.security.web.access.ExceptionTranslationFilter@363b6a25, org.springframework.security.web.access.intercept.AuthorizationFilter@36f03baf]
+2026-01-21 16:19:03.778 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-01-21 16:19:03.791 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8088 (http) with context path '/api'
+2026-01-21 16:19:03.797 [restartedMain] INFO  com.student.system.StudentSystemApplication - Started StudentSystemApplication in 1.053 seconds (process running for 262.586)
+2026-01-21 16:19:03.798 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-01-21 16:19:52.763 [restartedMain] INFO  com.student.system.StudentSystemApplication - Starting StudentSystemApplication using Java 17.0.17 with PID 41662 (/Users/jay/Desktop/project/backend/target/classes started by jay in /Users/jay/Desktop/project/backend)
+2026-01-21 16:19:52.765 [restartedMain] DEBUG com.student.system.StudentSystemApplication - Running with Spring Boot v3.2.1, Spring v6.1.2
+2026-01-21 16:19:52.765 [restartedMain] INFO  com.student.system.StudentSystemApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-21 16:19:52.787 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-21 16:19:52.787 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-21 16:19:53.223 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-01-21 16:19:53.224 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-01-21 16:19:53.236 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2026-01-21 16:19:53.331 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.student.system.mapper]' package. Please check your configuration.
+2026-01-21 16:19:53.782 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8088 (http)
+2026-01-21 16:19:53.787 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-21 16:19:53.787 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-01-21 16:19:53.809 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-01-21 16:19:53.809 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1022 ms
+2026-01-21 16:19:54.189 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: d3332c57-0a0b-4b93-8be6-9d9929960521
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-01-21 16:19:54.524 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2026-01-21 16:19:54.605 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3bbfe60b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@23a6f9dd, org.springframework.security.web.context.SecurityContextHolderFilter@c7bc048, org.springframework.security.web.header.HeaderWriterFilter@38bf8642, org.springframework.security.web.authentication.logout.LogoutFilter@4bc6fd30, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6e2388d0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@34b8450b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@253511c, org.springframework.security.web.session.SessionManagementFilter@1a70596b, org.springframework.security.web.access.ExceptionTranslationFilter@1a5b8c30, org.springframework.security.web.access.intercept.AuthorizationFilter@2409ef1b]
+2026-01-21 16:19:55.181 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-01-21 16:19:55.223 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8088 (http) with context path '/api'
+2026-01-21 16:19:55.235 [restartedMain] INFO  com.student.system.StudentSystemApplication - Started StudentSystemApplication in 2.648 seconds (process running for 2.817)
+2026-01-21 16:19:59.648 [http-nio-8088-exec-1] INFO  o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-21 16:19:59.649 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-21 16:19:59.650 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
