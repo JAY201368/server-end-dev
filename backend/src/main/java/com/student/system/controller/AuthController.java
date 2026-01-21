@@ -2,8 +2,10 @@ package com.student.system.controller;
 
 import com.student.system.common.Result;
 import com.student.system.dto.LoginRequest;
+import com.student.system.dto.RegisterRequest;
 import com.student.system.service.AuthService;
 import com.student.system.vo.LoginResponse;
+import com.student.system.vo.RegisterResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,16 @@ public class AuthController {
         log.info("用户登录请求: {}", loginRequest.getUsername());
         LoginResponse response = authService.login(loginRequest);
         return Result.success("登录成功", response);
+    }
+
+    /**
+     * 用户注册
+     */
+    @PostMapping("/register")
+    public Result<RegisterResponse> register(@Valid @RequestBody RegisterRequest registerRequest) {
+        log.info("用户注册请求: {}", registerRequest.getUsername());
+        RegisterResponse response = authService.register(registerRequest);
+        return Result.success("注册成功", response);
     }
 
     /**

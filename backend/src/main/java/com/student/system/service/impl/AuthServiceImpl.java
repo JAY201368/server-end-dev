@@ -2,19 +2,23 @@ package com.student.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.student.system.dto.LoginRequest;
+import com.student.system.dto.RegisterRequest;
 import com.student.system.entity.SysUser;
 import com.student.system.mapper.SysUserMapper;
 import com.student.system.service.AuthService;
 import com.student.system.util.JwtUtil;
 import com.student.system.util.RedisUtil;
 import com.student.system.vo.LoginResponse;
+import com.student.system.vo.RegisterResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -85,6 +89,80 @@ public class AuthServiceImpl implements AuthService {
                 user.getNickname(),
                 roles,
                 permissions
+        );
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public RegisterResponse register(RegisterRequest registerRequest) {
+        String username = registerRequest.getUsername();
+        String password = registerRequest.getPassword();
+        String confirmPassword = registerRequest.getConfirmPassword();
+        String nickname = registerRequest.getNickname();
+
+        // 1. 验证两次密码是否一致
+        if (!password.equals(confirmPassword)) {
+            log.error("两次密码不一致: {}", username);
+            throw new BadCredentialsException("两次密码不一致");
+        }
+
+        // 2. 检查用户名是否已存在
+        LambdaQueryWrapper<SysUser> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SysUser::getUsername, username);
+        Long count = userMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.error("用户名已存在: {}", username);
+            throw new BadCredentialsException("用户名已存在");
+        }
+
+        // 3. 检查邮箱是否已存在（如果提供）
+        if (registerRequest.getEmail() != null && !registerRequest.getEmail().isEmpty()) {
+            LambdaQueryWrapper<SysUser> emailWrapper = new LambdaQueryWrapper<>();
+            emailWrapper.eq(SysUser::getEmail, registerRequest.getEmail());
+            Long emailCount = userMapper.selectCount(emailWrapper);
+            if (emailCount > 0) {
+                log.error("邮箱已被注册: {}", registerRequest.getEmail());
+                throw new BadCredentialsException("邮箱已被注册");
+            }
+        }
+
+        // 4. 检查手机号是否已存在（如果提供）
+        if (registerRequest.getPhone() != null && !registerRequest.getPhone().isEmpty()) {
+            LambdaQueryWrapper<SysUser> phoneWrapper = new LambdaQueryWrapper<>();
+            phoneWrapper.eq(SysUser::getPhone, registerRequest.getPhone());
+            Long phoneCount = userMapper.selectCount(phoneWrapper);
+            if (phoneCount > 0) {
+                log.error("手机号已被注册: {}", registerRequest.getPhone());
+                throw new BadCredentialsException("手机号已被注册");
+            }
+        }
+
+        // 5. 创建新用户
+        SysUser newUser = new SysUser();
+        newUser.setUsername(username);
+        newUser.setPassword(passwordEncoder.encode(password)); // 加密密码
+        newUser.setNickname(nickname);
+        newUser.setEmail(registerRequest.getEmail());
+        newUser.setPhone(registerRequest.getPhone());
+        newUser.setStatus(1); // 默认启用
+        newUser.setDeleted(0); // 未删除
+
+        // 6. 插入数据库
+        int rows = userMapper.insert(newUser);
+        if (rows == 0) {
+            log.error("用户注册失败: {}", username);
+            throw new RuntimeException("用户注册失败");
+        }
+
+        log.info("用户注册成功: {} (ID: {})", username, newUser.getId());
+
+        // 7. 返回注册响应
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return new RegisterResponse(
+                newUser.getId(),
+                newUser.getUsername(),
+                newUser.getNickname(),
+                newUser.getCreateTime().format(formatter)
         );
     }
 

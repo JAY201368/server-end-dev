@@ -3,3 +3,4 @@ backend/target/
 **/.DS_Store
 .vscode/
 backend/logs
+frontend/node_modules/

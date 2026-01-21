@@ -1,7 +1,9 @@
 package com.student.system.service;
 
 import com.student.system.dto.LoginRequest;
+import com.student.system.dto.RegisterRequest;
 import com.student.system.vo.LoginResponse;
+import com.student.system.vo.RegisterResponse;
 
 /**
  * 认证服务接口
@@ -17,6 +19,14 @@ public interface AuthService {
      * @return 登录响应（包含Token）
      */
     LoginResponse login(LoginRequest loginRequest);
+
+    /**
+     * 用户注册
+     *
+     * @param registerRequest 注册请求
+     * @return 注册响应
+     */
+    RegisterResponse register(RegisterRequest registerRequest);
 
     /**
      * 用户登出
