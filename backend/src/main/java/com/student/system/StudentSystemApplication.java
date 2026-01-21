@@ -1,6 +1,5 @@
 package com.student.system;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -13,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @since 2024-01-21
  */
 @SpringBootApplication
-@MapperScan("com.student.system.mapper")
 @EnableCaching
 @EnableAsync
 public class StudentSystemApplication {
