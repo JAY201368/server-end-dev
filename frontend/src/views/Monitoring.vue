@@ -104,8 +104,8 @@
             style="width: 100%"
             :header-cell-style="{ background: '#fafafa', color: '#333' }"
           >
-            <el-table-column prop="endpoint" label="接口路径" min-width="200" />
-            <el-table-column prop="method" label="请求方法" width="120" />
+            <el-table-column prop="endpoint" label="接口名称" min-width="180" />
+            <!-- <el-table-column prop="method" label="请求方法" width="100" /> -->
             <el-table-column prop="count" label="调用次数" width="120" sortable />
             <el-table-column prop="avgTime" label="平均响应时间(ms)" width="150" sortable>
               <template #default="{ row }">
@@ -167,29 +167,24 @@ onMounted(() => {
 const fetchData = async () => {
   loading.value = true
   try {
-    const data = await monitoringAPI.getStats()
-    statsData.value = data || []
+    const response = await monitoringAPI.getStats()
+    // 后端返回格式: { code: 200, message: "查询成功", data: [...] }
+    const data = response.data || []
+    statsData.value = data
 
-    // Transform data for table
+    // Transform data for table - 后端返回的字段: apiName, avgDuration, minDuration, maxDuration
+    // apiName是中文描述,如"查询学生列表"而非路径
     tableData.value = data.map(item => ({
-      endpoint: item.endpoint || 'N/A',
-      method: item.method || 'GET',
+      endpoint: item.apiName || 'N/A',  // 使用中文描述作为接口名称
+      method: '-',  // 后端未提供HTTP方法信息
       count: item.count || 0,
-      avgTime: item.avgTime || 0,
-      minTime: item.minTime || 0,
-      maxTime: item.maxTime || 0
+      avgTime: item.avgDuration || 0,
+      minTime: item.minDuration || 0,
+      maxTime: item.maxDuration || 0
     }))
   } catch (error) {
-    ElMessage.error('获取监控数据失败')
-    // Mock data for demo
-    tableData.value = [
-      { endpoint: '/api/students', method: 'GET', count: 150, avgTime: 45, minTime: 20, maxTime: 150 },
-      { endpoint: '/api/students', method: 'POST', count: 30, avgTime: 120, minTime: 80, maxTime: 300 },
-      { endpoint: '/api/students/{id}', method: 'GET', count: 80, avgTime: 35, minTime: 15, maxTime: 100 },
-      { endpoint: '/api/students/{id}', method: 'DELETE', count: 15, avgTime: 200, minTime: 150, maxTime: 500 },
-      { endpoint: '/api/leaderboard/top10', method: 'GET', count: 200, avgTime: 25, minTime: 10, maxTime: 80 },
-      { endpoint: '/api/monitoring/stats', method: 'GET', count: 50, avgTime: 55, minTime: 30, maxTime: 120 }
-    ]
+    console.error('获取监控数据失败:', error)
+    ElMessage.error('获取监控数据失败: ' + (error.message || '请检查后端服务'))
   } finally {
     loading.value = false
   }
@@ -210,7 +205,7 @@ const slowRequests = computed(() => {
 })
 
 const errorRequests = computed(() => {
-  return tableData.value.filter(item => item.avgTime > 500).length
+  return tableData.value.filter(item => item.avgTime > 1000).length
 })
 
 const responseTimeOption = computed(() => ({
@@ -228,7 +223,7 @@ const responseTimeOption = computed(() => ({
   },
   xAxis: {
     type: 'category',
-    data: tableData.value.map(item => `${item.method} ${item.endpoint.substring(0, 20)}`),
+    data: tableData.value.map(item => item.endpoint.substring(0, 10)),  // 截取接口名称前10个字符
     axisLabel: {
       interval: 0,
       rotate: 45,
@@ -293,7 +288,7 @@ const requestCountOption = computed(() => ({
       },
       data: tableData.value.map(item => ({
         value: item.count,
-        name: `${item.method} ${item.endpoint.substring(0, 20)}`
+        name: item.endpoint  // 使用完整的接口名称
       }))
     }
   ]
@@ -314,8 +309,7 @@ const getStatusTagType = (time) => {
 
 const getStatus = (time) => {
   if (time < 100) return '正常'
-  if (time < 200) return '偏慢'
-  return '异常'
+  return '偏慢'
 }
 </script>
 

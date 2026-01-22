@@ -4,7 +4,6 @@
       <div class="header-content">
         <div>
           <h2>学生管理</h2>
-          <p>管理学生信息，支持增删改查操作</p>
         </div>
         <el-button type="primary" :icon="Plus" @click="handleAdd">
           添加学生
@@ -384,7 +383,8 @@ const handleSubmit = async () => {
         dialogVisible.value = false
         fetchData()
       } catch (error) {
-        ElMessage.error(isEdit.value ? '更新失败' : '添加失败')
+        // Error message is already shown by the interceptor
+        console.error('提交失败:', error)
       } finally {
         submitLoading.value = false
       }

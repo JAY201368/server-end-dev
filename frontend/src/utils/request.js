@@ -33,7 +33,18 @@ request.interceptors.response.use(
   response => {
     console.log('响应拦截器 - 原始响应:', response)
     console.log('响应拦截器 - response.data:', response.data)
-    return response.data
+
+    const res = response.data
+
+    // Check if the backend returned a successful code (200 is success in the Result class)
+    if (res.code !== undefined && res.code !== 200) {
+      // Backend returned an error code (e.g., 500, 400, etc.)
+      console.error('业务错误:', res)
+      ElMessage.error(res.message || '操作失败')
+      return Promise.reject(new Error(res.message || '操作失败'))
+    }
+
+    return res
   },
   error => {
     console.error('响应拦截器 - 错误:', error)
@@ -53,10 +64,12 @@ request.interceptors.response.use(
           ElMessage.error('请求资源不存在')
           break
         case 500:
-          ElMessage.error('服务器错误')
+          // For 500 errors, try to show the backend error message
+          const errorMsg = error.response.data?.message || '服务器错误'
+          ElMessage.error(errorMsg)
           break
         default:
-          ElMessage.error(error.response.data.message || '请求失败')
+          ElMessage.error(error.response.data?.message || '请求失败')
       }
     } else {
       ElMessage.error('网络错误，请检查网络连接')

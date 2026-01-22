@@ -2,11 +2,10 @@
   <div class="dashboard-container">
     <el-card class="welcome-card">
       <h1>欢迎使用学生管理系统</h1>
-      <p>基于 Spring Boot + Vue 3 的全栈应用</p>
     </el-card>
 
     <el-row :gutter="20" style="margin-top: 20px">
-      <el-col :span="6">
+      <el-col :span="8">
         <el-card class="feature-card" shadow="hover" @click="navigate('/students')">
           <div class="feature-content">
             <el-icon class="feature-icon" color="#409EFF"><User /></el-icon>
@@ -18,7 +17,7 @@
         </el-card>
       </el-col>
 
-      <el-col :span="6">
+      <el-col :span="8">
         <el-card class="feature-card" shadow="hover" @click="navigate('/leaderboard')">
           <div class="feature-content">
             <el-icon class="feature-icon" color="#67C23A"><TrophyBase /></el-icon>
@@ -30,7 +29,7 @@
         </el-card>
       </el-col>
 
-      <el-col :span="6">
+      <el-col :span="8">
         <el-card class="feature-card" shadow="hover" @click="navigate('/monitoring')">
           <div class="feature-content">
             <el-icon class="feature-icon" color="#E6A23C"><Monitor /></el-icon>
@@ -42,64 +41,14 @@
         </el-card>
       </el-col>
 
-      <el-col :span="6">
-        <el-card class="feature-card" shadow="hover">
-          <div class="feature-content">
-            <el-icon class="feature-icon" color="#F56C6C"><DataAnalysis /></el-icon>
-            <div class="feature-info">
-              <h3>数据统计</h3>
-              <p>敬请期待</p>
-            </div>
-          </div>
-        </el-card>
-      </el-col>
     </el-row>
 
-    <el-row :gutter="20" style="margin-top: 20px">
-      <el-col :span="12">
-        <el-card>
-          <template #header>
-            <div class="card-header">
-              <span>技术栈</span>
-            </div>
-          </template>
-          <div class="tech-stack">
-            <el-tag size="large" effect="plain" type="success">Spring Boot</el-tag>
-            <el-tag size="large" effect="plain" type="primary">Vue 3</el-tag>
-            <el-tag size="large" effect="plain" type="warning">MySQL</el-tag>
-            <el-tag size="large" effect="plain" type="danger">Redis</el-tag>
-            <el-tag size="large" effect="plain" type="info">Kafka</el-tag>
-            <el-tag size="large" effect="plain">Element Plus</el-tag>
-            <el-tag size="large" effect="plain">Spring Security</el-tag>
-            <el-tag size="large" effect="plain">AOP</el-tag>
-          </div>
-        </el-card>
-      </el-col>
-
-      <el-col :span="12">
-        <el-card>
-          <template #header>
-            <div class="card-header">
-              <span>功能特性</span>
-            </div>
-          </template>
-          <ul class="feature-list">
-            <li><el-icon color="#67C23A"><Check /></el-icon> JWT 身份认证</li>
-            <li><el-icon color="#67C23A"><Check /></el-icon> CRUD 完整功能</li>
-            <li><el-icon color="#67C23A"><Check /></el-icon> Redis 排行榜</li>
-            <li><el-icon color="#67C23A"><Check /></el-icon> Kafka 消息队列</li>
-            <li><el-icon color="#67C23A"><Check /></el-icon> AOP 性能监控</li>
-            <li><el-icon color="#67C23A"><Check /></el-icon> 响应式前端设计</li>
-          </ul>
-        </el-card>
-      </el-col>
-    </el-row>
   </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { User, TrophyBase, Monitor, DataAnalysis, Check } from '@element-plus/icons-vue'
+import { User, TrophyBase, Monitor, Check } from '@element-plus/icons-vue'
 
 const router = useRouter()
 

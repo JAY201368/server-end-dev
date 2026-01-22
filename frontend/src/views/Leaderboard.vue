@@ -4,7 +4,6 @@
       <div class="header-content">
         <div>
           <h2>成绩排行榜</h2>
-          <p>基于Redis ZSet实现的实时排行榜</p>
         </div>
         <div class="header-actions">
           <el-select v-model="selectedSemester" placeholder="选择学期" style="width: 150px; margin-right: 10px" @change="fetchData">
@@ -47,7 +46,7 @@
 
           <div class="score-info">
             <div class="score-label">分数</div>
-            <div class="score-value">{{ item.score.toFixed(1) }}</div>
+            <div class="score-value">{{ item.score ? item.score.toFixed(1) : '0.0' }}</div>
           </div>
         </div>
 
@@ -135,8 +134,8 @@ const fetchData = async () => {
   loading.value = true
   try {
     // Backend returns: List<ScoreRankVO> with fields: rank, studentId, studentNo, studentName, score, semester, avatar
-    const data = await scoreAPI.getRanking(selectedSemester.value, 10)
-    leaderboardData.value = data || []
+    const response = await scoreAPI.getRanking(selectedSemester.value, 10)
+    leaderboardData.value = response.data || []
   } catch (error) {
     ElMessage.error('获取排行榜数据失败')
   } finally {
