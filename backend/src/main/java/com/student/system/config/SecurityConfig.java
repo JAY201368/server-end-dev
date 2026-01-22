@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 /**
  * Spring Security 配置类
@@ -26,6 +27,9 @@ public class SecurityConfig {
 
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private CorsConfigurationSource corsConfigurationSource;
 
     /**
      * 密码编码器
@@ -44,8 +48,8 @@ public class SecurityConfig {
                 // 禁用 CSRF (因为使用 JWT，不需要 CSRF 保护)
                 .csrf(AbstractHttpConfigurer::disable)
 
-                // 禁用 CORS (后续可以单独配置)
-                .cors(AbstractHttpConfigurer::disable)
+                // 启用 CORS (使用自定义配置)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource))
 
                 // 配置会话管理为无状态 (使用 JWT，不需要 Session)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

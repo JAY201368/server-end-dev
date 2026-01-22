@@ -36,17 +36,33 @@
 
         <el-table-column label="头像" width="100">
           <template #default="{ row }">
-            <el-avatar :size="50" :src="row.avatarUrl || defaultAvatar" />
+            <el-avatar :size="50" :src="row.avatar || defaultAvatar" />
           </template>
         </el-table-column>
 
         <el-table-column prop="name" label="姓名" width="120" />
 
-        <el-table-column prop="studentNumber" label="学号" width="150" />
+        <el-table-column prop="studentNo" label="学号" width="150" />
 
-        <el-table-column prop="major" label="专业" min-width="150" />
+        <el-table-column label="性别" width="80">
+          <template #default="{ row }">
+            {{ row.gender === 1 ? '男' : row.gender === 0 ? '女' : '-' }}
+          </template>
+        </el-table-column>
 
-        <el-table-column prop="grade" label="年级" width="100" />
+        <el-table-column prop="phone" label="联系电话" width="120" />
+
+        <el-table-column prop="email" label="邮箱" min-width="150" />
+
+        <el-table-column label="状态" width="100">
+          <template #default="{ row }">
+            <el-tag v-if="row.status === 1" type="success">在读</el-tag>
+            <el-tag v-else-if="row.status === 0" type="warning">休学</el-tag>
+            <el-tag v-else-if="row.status === 2" type="info">毕业</el-tag>
+            <el-tag v-else-if="row.status === 3" type="danger">退学</el-tag>
+            <el-tag v-else type="info">-</el-tag>
+          </template>
+        </el-table-column>
 
         <el-table-column label="操作" width="250" fixed="right">
           <template #default="{ row }">
@@ -87,7 +103,7 @@
       <el-form :model="form" :rules="rules" ref="formRef" label-width="100px">
         <el-form-item label="头像">
           <div class="avatar-upload">
-            <el-avatar :size="100" :src="form.avatarUrl || defaultAvatar" />
+            <el-avatar :size="100" :src="form.avatar || defaultAvatar" />
             <el-upload
               class="upload-button"
               :show-file-list="false"
@@ -105,16 +121,58 @@
           <el-input v-model="form.name" placeholder="请输入学生姓名" />
         </el-form-item>
 
-        <el-form-item label="学号" prop="studentNumber">
-          <el-input v-model="form.studentNumber" placeholder="请输入学号" />
+        <el-form-item label="学号" prop="studentNo">
+          <el-input v-model="form.studentNo" placeholder="请输入学号" />
         </el-form-item>
 
-        <el-form-item label="专业" prop="major">
-          <el-input v-model="form.major" placeholder="请输入专业" />
+        <el-form-item label="性别" prop="gender">
+          <el-radio-group v-model="form.gender">
+            <el-radio :label="1">男</el-radio>
+            <el-radio :label="0">女</el-radio>
+          </el-radio-group>
         </el-form-item>
 
-        <el-form-item label="年级" prop="grade">
-          <el-input v-model="form.grade" placeholder="请输入年级" />
+        <el-form-item label="出生日期" prop="birthDate">
+          <el-date-picker
+            v-model="form.birthDate"
+            type="date"
+            placeholder="请选择出生日期"
+            format="YYYY-MM-DD"
+            value-format="YYYY-MM-DD"
+            style="width: 100%"
+          />
+        </el-form-item>
+
+        <el-form-item label="联系电话" prop="phone">
+          <el-input v-model="form.phone" placeholder="请输入联系电话" />
+        </el-form-item>
+
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="form.email" placeholder="请输入邮箱" />
+        </el-form-item>
+
+        <el-form-item label="班级ID" prop="classId">
+          <el-input-number v-model="form.classId" placeholder="请输入班级ID" style="width: 100%" />
+        </el-form-item>
+
+        <el-form-item label="入学日期" prop="enrollmentDate">
+          <el-date-picker
+            v-model="form.enrollmentDate"
+            type="date"
+            placeholder="请选择入学日期"
+            format="YYYY-MM-DD"
+            value-format="YYYY-MM-DD"
+            style="width: 100%"
+          />
+        </el-form-item>
+
+        <el-form-item label="状态" prop="status">
+          <el-select v-model="form.status" placeholder="请选择状态" style="width: 100%">
+            <el-option label="休学" :value="0" />
+            <el-option label="在读" :value="1" />
+            <el-option label="毕业" :value="2" />
+            <el-option label="退学" :value="3" />
+          </el-select>
         </el-form-item>
       </el-form>
 
@@ -127,17 +185,31 @@
     </el-dialog>
 
     <!-- View Dialog -->
-    <el-dialog v-model="viewDialogVisible" title="学生详情" width="500px">
+    <el-dialog v-model="viewDialogVisible" title="学生详情" width="600px">
       <div class="student-detail">
         <div class="detail-avatar">
-          <el-avatar :size="120" :src="viewData.avatarUrl || defaultAvatar" />
+          <el-avatar :size="120" :src="viewData.avatar || defaultAvatar" />
         </div>
-        <el-descriptions :column="1" border>
+        <el-descriptions :column="2" border>
           <el-descriptions-item label="ID">{{ viewData.id }}</el-descriptions-item>
+          <el-descriptions-item label="学号">{{ viewData.studentNo }}</el-descriptions-item>
           <el-descriptions-item label="姓名">{{ viewData.name }}</el-descriptions-item>
-          <el-descriptions-item label="学号">{{ viewData.studentNumber }}</el-descriptions-item>
-          <el-descriptions-item label="专业">{{ viewData.major }}</el-descriptions-item>
-          <el-descriptions-item label="年级">{{ viewData.grade }}</el-descriptions-item>
+          <el-descriptions-item label="性别">
+            {{ viewData.gender === 1 ? '男' : viewData.gender === 0 ? '女' : '-' }}
+          </el-descriptions-item>
+          <el-descriptions-item label="出生日期">{{ viewData.birthDate || '-' }}</el-descriptions-item>
+          <el-descriptions-item label="联系电话">{{ viewData.phone || '-' }}</el-descriptions-item>
+          <el-descriptions-item label="邮箱" :span="2">{{ viewData.email || '-' }}</el-descriptions-item>
+          <el-descriptions-item label="班级ID">{{ viewData.classId || '-' }}</el-descriptions-item>
+          <el-descriptions-item label="入学日期">{{ viewData.enrollmentDate || '-' }}</el-descriptions-item>
+          <el-descriptions-item label="状态">
+            <el-tag v-if="viewData.status === 1" type="success">在读</el-tag>
+            <el-tag v-else-if="viewData.status === 0" type="warning">休学</el-tag>
+            <el-tag v-else-if="viewData.status === 2" type="info">毕业</el-tag>
+            <el-tag v-else-if="viewData.status === 3" type="danger">退学</el-tag>
+            <el-tag v-else type="info">-</el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="创建时间" :span="2">{{ viewData.createTime || '-' }}</el-descriptions-item>
         </el-descriptions>
       </div>
     </el-dialog>
@@ -166,27 +238,37 @@ const defaultAvatar = 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726
 
 const form = reactive({
   id: null,
+  studentNo: '',
   name: '',
-  studentNumber: '',
-  major: '',
-  grade: '',
-  avatarUrl: ''
+  gender: 1,
+  birthDate: '',
+  phone: '',
+  email: '',
+  avatar: '',
+  classId: null,
+  enrollmentDate: '',
+  status: 1
 })
 
 const viewData = reactive({
   id: null,
+  studentNo: '',
   name: '',
-  studentNumber: '',
-  major: '',
-  grade: '',
-  avatarUrl: ''
+  gender: null,
+  birthDate: '',
+  phone: '',
+  email: '',
+  avatar: '',
+  classId: null,
+  enrollmentDate: '',
+  status: null,
+  createTime: '',
+  updateTime: ''
 })
 
 const rules = {
   name: [{ required: true, message: '请输入学生姓名', trigger: 'blur' }],
-  studentNumber: [{ required: true, message: '请输入学号', trigger: 'blur' }],
-  major: [{ required: true, message: '请输入专业', trigger: 'blur' }],
-  grade: [{ required: true, message: '请输入年级', trigger: 'blur' }]
+  studentNo: [{ required: true, message: '请输入学号', trigger: 'blur' }]
 }
 
 onMounted(() => {
@@ -196,9 +278,13 @@ onMounted(() => {
 const fetchData = async () => {
   loading.value = true
   try {
-    const response = await studentAPI.getList(currentPage.value - 1, pageSize.value)
-    tableData.value = response.content || []
-    total.value = response.totalElements || 0
+    // Backend response format: { code, message, data: { records, total, size, current, pages }, timestamp }
+    // studentAPI.getList returns response.data from the interceptor (the full Result object)
+    const response = await studentAPI.getList(currentPage.value, pageSize.value)
+    // response is the full Result object, so we need to access response.data to get the IPage object
+    const pageData = response.data || {}
+    tableData.value = pageData.records || []
+    total.value = pageData.total || 0
   } catch (error) {
     ElMessage.error('获取数据失败')
   } finally {
@@ -270,10 +356,10 @@ const handleAvatarUpload = async (file) => {
     return false
   }
 
-  // Convert to base64 for preview
+  // Convert to base64 for preview (backend uses 'avatar' field)
   const reader = new FileReader()
   reader.onload = (e) => {
-    form.avatarUrl = e.target.result
+    form.avatar = e.target.result
   }
   reader.readAsDataURL(file)
 
@@ -288,7 +374,8 @@ const handleSubmit = async () => {
       submitLoading.value = true
       try {
         if (isEdit.value) {
-          await studentAPI.update(form.id, form)
+          // Backend expects the entire student object with id included
+          await studentAPI.update(form)
           ElMessage.success('更新成功')
         } else {
           await studentAPI.create(form)
@@ -312,11 +399,16 @@ const handleClose = () => {
 
 const resetForm = () => {
   form.id = null
+  form.studentNo = ''
   form.name = ''
-  form.studentNumber = ''
-  form.major = ''
-  form.grade = ''
-  form.avatarUrl = ''
+  form.gender = 1
+  form.birthDate = ''
+  form.phone = ''
+  form.email = ''
+  form.avatar = ''
+  form.classId = null
+  form.enrollmentDate = ''
+  form.status = 1
   if (formRef.value) {
     formRef.value.resetFields()
   }

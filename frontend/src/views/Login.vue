@@ -89,10 +89,23 @@ const handleLogin = async () => {
       loading.value = true
       try {
         const response = await authAPI.login(loginForm.username, loginForm.password)
-        localStorage.setItem('token', response.token)
-        ElMessage.success('登录成功')
-        router.push('/dashboard')
+        // 后端返回: Result<LoginResponse> -> { code, message, data: { token, ... } }
+        // request.js拦截器返回 response.data，所以response就是整个Result对象
+        console.log('登录响应完整对象:', response)
+        console.log('登录响应data字段:', response.data)
+
+        if (response && response.data && response.data.token) {
+          const token = response.data.token
+          console.log('提取的token:', token)
+          localStorage.setItem('token', token)
+          ElMessage.success('登录成功')
+          router.push('/dashboard')
+        } else {
+          console.error('登录响应格式错误，response:', response)
+          ElMessage.error('登录响应格式错误')
+        }
       } catch (error) {
+        console.error('登录失败:', error)
         ElMessage.error('登录失败，请检查用户名和密码')
       } finally {
         loading.value = false

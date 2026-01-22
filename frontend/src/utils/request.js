@@ -15,8 +15,10 @@ const request = axios.create({
 request.interceptors.request.use(
   config => {
     const token = localStorage.getItem('token')
+    console.log('请求拦截器 - Token:', token)
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
+      console.log('请求拦截器 - Authorization header:', config.headers.Authorization)
     }
     return config
   },
@@ -29,9 +31,13 @@ request.interceptors.request.use(
 // Response interceptor - handle 401 status
 request.interceptors.response.use(
   response => {
+    console.log('响应拦截器 - 原始响应:', response)
+    console.log('响应拦截器 - response.data:', response.data)
     return response.data
   },
   error => {
+    console.error('响应拦截器 - 错误:', error)
+    console.error('响应拦截器 - 错误响应:', error.response)
     if (error.response) {
       switch (error.response.status) {
         case 401:
@@ -41,6 +47,7 @@ request.interceptors.response.use(
           break
         case 403:
           ElMessage.error('拒绝访问')
+          console.error('403错误详情:', error.response.data)
           break
         case 404:
           ElMessage.error('请求资源不存在')

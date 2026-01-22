@@ -3,12 +3,20 @@
     <el-card class="page-header">
       <div class="header-content">
         <div>
-          <h2>学生排行榜</h2>
-          <p>基于Redis ZSet实现的实时排行榜（前10名）</p>
+          <h2>成绩排行榜</h2>
+          <p>基于Redis ZSet实现的实时排行榜</p>
         </div>
-        <el-button type="primary" :icon="Refresh" @click="fetchData">
-          刷新数据
-        </el-button>
+        <div class="header-actions">
+          <el-select v-model="selectedSemester" placeholder="选择学期" style="width: 150px; margin-right: 10px" @change="fetchData">
+            <el-option label="2024-1" value="2024-1" />
+            <el-option label="2024-2" value="2024-2" />
+            <el-option label="2025-1" value="2025-1" />
+            <el-option label="2025-2" value="2025-2" />
+          </el-select>
+          <el-button type="primary" :icon="Refresh" @click="fetchData">
+            刷新数据
+          </el-button>
+        </div>
       </div>
     </el-card>
 
@@ -21,7 +29,7 @@
           :class="getRankClass(index)"
         >
           <div class="rank-badge">
-            <div class="rank-number" v-if="index >= 3">{{ index + 1 }}</div>
+            <div class="rank-number" v-if="index >= 3">{{ item.rank }}</div>
             <el-icon v-else class="medal-icon">
               <Trophy v-if="index === 0" />
               <Medal v-else-if="index === 1" />
@@ -30,10 +38,10 @@
           </div>
 
           <div class="student-info">
-            <el-avatar :size="50" :src="getAvatarUrl(item.studentId)" />
+            <el-avatar :size="50" :src="item.avatar || getAvatarUrl(item.studentId)" />
             <div class="info-text">
-              <div class="student-name">学生 #{{ item.studentId }}</div>
-              <div class="student-id">ID: {{ item.studentId }}</div>
+              <div class="student-name">{{ item.studentName }}</div>
+              <div class="student-id">学号: {{ item.studentNo }}</div>
             </div>
           </div>
 
@@ -49,13 +57,21 @@
       <!-- Add Score Form -->
       <el-divider />
       <div class="add-score-section">
-        <h3>添加/更新分数</h3>
+        <h3>录入成绩</h3>
         <el-form :inline="true" :model="scoreForm" class="score-form">
           <el-form-item label="学生ID">
             <el-input-number
               v-model="scoreForm.studentId"
               :min="1"
               placeholder="学生ID"
+              style="width: 150px"
+            />
+          </el-form-item>
+          <el-form-item label="课程ID">
+            <el-input-number
+              v-model="scoreForm.courseId"
+              :min="1"
+              placeholder="课程ID"
               style="width: 150px"
             />
           </el-form-item>
@@ -69,6 +85,14 @@
               style="width: 150px"
             />
           </el-form-item>
+          <el-form-item label="学期">
+            <el-select v-model="scoreForm.semester" placeholder="选择学期" style="width: 150px">
+              <el-option label="2024-1" value="2024-1" />
+              <el-option label="2024-2" value="2024-2" />
+              <el-option label="2025-1" value="2025-1" />
+              <el-option label="2025-2" value="2025-2" />
+            </el-select>
+          </el-form-item>
           <el-form-item>
             <el-button
               type="primary"
@@ -76,7 +100,7 @@
               :loading="addLoading"
               :icon="Plus"
             >
-              提交分数
+              提交成绩
             </el-button>
           </el-form-item>
         </el-form>
@@ -89,15 +113,18 @@
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Refresh, Trophy, Medal, Plus } from '@element-plus/icons-vue'
-import { leaderboardAPI } from '@/api'
+import { scoreAPI } from '@/api'
 
 const loading = ref(false)
 const addLoading = ref(false)
 const leaderboardData = ref([])
+const selectedSemester = ref('2024-1')
 
 const scoreForm = reactive({
   studentId: null,
-  score: null
+  courseId: null,
+  score: null,
+  semester: '2024-1'
 })
 
 onMounted(() => {
@@ -107,7 +134,8 @@ onMounted(() => {
 const fetchData = async () => {
   loading.value = true
   try {
-    const data = await leaderboardAPI.getTop10()
+    // Backend returns: List<ScoreRankVO> with fields: rank, studentId, studentNo, studentName, score, semester, avatar
+    const data = await scoreAPI.getRanking(selectedSemester.value, 10)
     leaderboardData.value = data || []
   } catch (error) {
     ElMessage.error('获取排行榜数据失败')
@@ -121,20 +149,36 @@ const handleAddScore = async () => {
     ElMessage.warning('请输入学生ID')
     return
   }
+  if (!scoreForm.courseId) {
+    ElMessage.warning('请输入课程ID')
+    return
+  }
   if (scoreForm.score === null || scoreForm.score === undefined) {
     ElMessage.warning('请输入分数')
+    return
+  }
+  if (!scoreForm.semester) {
+    ElMessage.warning('请选择学期')
     return
   }
 
   addLoading.value = true
   try {
-    await leaderboardAPI.addScore(scoreForm.studentId, scoreForm.score)
-    ElMessage.success('分数提交成功')
+    // Backend expects: studentId, courseId, score, semester
+    await scoreAPI.save({
+      studentId: scoreForm.studentId,
+      courseId: scoreForm.courseId,
+      score: scoreForm.score,
+      semester: scoreForm.semester
+    })
+    ElMessage.success('成绩录入成功')
     scoreForm.studentId = null
+    scoreForm.courseId = null
     scoreForm.score = null
+    // Keep semester selection
     await fetchData()
   } catch (error) {
-    ElMessage.error('分数提交失败')
+    ElMessage.error('成绩录入失败')
   } finally {
     addLoading.value = false
   }
@@ -164,6 +208,11 @@ const getAvatarUrl = (studentId) => {
 .header-content {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.header-actions {
+  display: flex;
   align-items: center;
 }
 
