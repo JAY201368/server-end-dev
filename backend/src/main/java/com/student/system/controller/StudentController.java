@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.student.system.annotation.RequestMonitor;
+import com.student.system.annotation.RequiresPermission;
 import com.student.system.common.Result;
 import com.student.system.dto.StudentDTO;
 import com.student.system.dto.SystemLogMessage;
@@ -43,12 +44,14 @@ public class StudentController {
 
     /**
      * 添加学生
+     * 需要权限：student:add
      *
      * @param studentDTO 学生数据传输对象
      * @return 响应结果
      */
     @PostMapping("/add")
     @RequestMonitor(value = "添加学生", category = "student")
+    @RequiresPermission("student:add")
     public Result<String> addStudent(@Valid @RequestBody StudentDTO studentDTO) {
         log.info("开始添加学生 - 学号: {}, 姓名: {}", studentDTO.getStudentNo(), studentDTO.getName());
 
@@ -79,11 +82,13 @@ public class StudentController {
 
     /**
      * 更新学生信息
+     * 需要权限：student:edit
      *
      * @param studentDTO 学生数据传输对象
      * @return 响应结果
      */
     @PutMapping("/update")
+    @RequiresPermission("student:edit")
     public Result<String> updateStudent(@Valid @RequestBody StudentDTO studentDTO) {
         log.info("开始更新学生信息 - ID: {}, 姓名: {}", studentDTO.getId(), studentDTO.getName());
 
@@ -128,12 +133,14 @@ public class StudentController {
      * 删除学生
      * 使用逻辑删除（MyBatis-Plus的@TableLogic）
      * 删除成功后发送消息到 Kafka
+     * 需要权限：student:delete
      *
      * @param id 学生ID
      * @return 响应结果
      */
     @DeleteMapping("/{id}")
     @RequestMonitor(value = "删除学生", category = "student")
+    @RequiresPermission("student:delete")
     public Result<String> deleteStudent(@PathVariable Long id, HttpServletRequest request) {
         log.info("开始删除学生 - ID: {}", id);
 
@@ -236,11 +243,13 @@ public class StudentController {
 
     /**
      * 根据ID查询学生详情
+     * 需要权限：student:view
      *
      * @param id 学生ID
      * @return 学生详情
      */
     @GetMapping("/{id}")
+    @RequiresPermission("student:view")
     public Result<Student> getStudent(@PathVariable Long id) {
         log.info("查询学生详情 - ID: {}", id);
 
@@ -262,6 +271,7 @@ public class StudentController {
     /**
      * 分页查询学生列表
      * 支持按姓名、学号模糊查询
+     * 需要权限：student:view
      *
      * @param page 页码（从1开始）
      * @param size 每页大小
@@ -272,6 +282,7 @@ public class StudentController {
      */
     @GetMapping("/list")
     @RequestMonitor(value = "查询学生列表", category = "student")
+    @RequiresPermission("student:view")
     public Result<IPage<Student>> listStudents(
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size,
@@ -320,11 +331,13 @@ public class StudentController {
 
     /**
      * 根据学号查询学生
+     * 需要权限：student:view
      *
      * @param studentNo 学号
      * @return 学生信息
      */
     @GetMapping("/no/{studentNo}")
+    @RequiresPermission("student:view")
     public Result<Student> getByStudentNo(@PathVariable String studentNo) {
         log.info("根据学号查询学生 - 学号: {}", studentNo);
 
@@ -345,11 +358,13 @@ public class StudentController {
 
     /**
      * 批量删除学生
+     * 需要权限：student:delete
      *
      * @param ids 学生ID列表
      * @return 响应结果
      */
     @DeleteMapping("/batch")
+    @RequiresPermission("student:delete")
     public Result<String> batchDeleteStudents(@RequestBody java.util.List<Long> ids) {
         log.info("批量删除学生 - IDs: {}", ids);
 
